@@ -7,3 +7,5 @@ A simple exercise for the Mimmit Koodaa introduction workshops. Follow this alon
 :white_check_mark: With this exercise we're hoping to show you how to get started, challenge you and give a boost to continue learning - this exercise is going to have challenges but it's not impossible.
 
 :bulb: Are you looking for a good guide to get started with web development and go into more detail? Check out for example https://btholt.github.io/intro-to-web-dev-v2/ 
+
+:ok_hand: [Introduction](https://github.com/DrazenDodik/mimmitkoodaa/blob/master/mimmitkoodaa-intro/part1_introduction.md)
