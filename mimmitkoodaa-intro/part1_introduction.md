@@ -22,3 +22,5 @@
 Interested in learning more about editors and different options?
 * [Choosing the best code editor as a web developer in 2018](https://designrevision.com/best-code-editor/)
 * [StackOverflow Developer Survey 2018 - Development Environments and Tools](https://insights.stackoverflow.com/survey/2018/#development-environments-and-tools)
+
+Next [Creating a page](https://github.com/DrazenDodik/mimmitkoodaa/blob/master/mimmitkoodaa-intro/part2_creatingAPage.md)
