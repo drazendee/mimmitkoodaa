@@ -8,4 +8,5 @@ A simple exercise for the Mimmit Koodaa introduction workshops. Follow this alon
 
 :bulb: Are you looking for a good guide to get started with web development and go into more detail? Check out for example https://btholt.github.io/intro-to-web-dev-v2/ 
 
+Ready? Lets get started:
 :ok_hand: [Introduction](https://github.com/DrazenDodik/mimmitkoodaa/blob/master/mimmitkoodaa-intro/part1_introduction.md)
