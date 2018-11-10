@@ -116,3 +116,5 @@ You'll notice that the text comparison is case sensitive, so "helsinki" is not t
 
 At this point, take a breather and congratulate yourself.. and if you're the expressive type whaile your hands in the air :tada::tada::tada:
 
+[Going to the backend with Node.js](https://github.com/DrazenDodik/mimmitkoodaa/blob/master/mimmitkoodaa-intro/part3_nodejs.md)
+
