@@ -116,3 +116,5 @@ Now your browser is navigating to the root ('/') of your server (localhost) at p
 > By default the browser will use port 80, which is the standard port for HTTP. In our sample above we use port 3000, in case you already have some service listening at the default port (80) - but you could put any available port there, it doesn't need to be 3000.
 
 You know what time is it? It's time to take a breather and congratulate yourself.. and if you're the expressive type whaile your hands in the air :tada::tada::tada:
+
+[Working with APIs](https://github.com/DrazenDodik/mimmitkoodaa/blob/master/mimmitkoodaa-intro/part4_APIs.md)
