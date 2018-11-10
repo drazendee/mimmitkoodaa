@@ -1,0 +1,144 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <title>Helsinki events</title>
+  <style>
+    body {
+      font-family:Arial, Helvetica, sans-serif;
+      color:#3d3d3d;
+    }
+
+    .wrapper { 
+  height: 100%;
+  width: 100%;
+  left:0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+background-size: 1800% 1800%;
+
+-webkit-animation: rainbow 18s ease infinite;
+-z-animation: rainbow 18s ease infinite;
+-o-animation: rainbow 18s ease infinite;
+  animation: rainbow 18s ease infinite;}
+
+@-webkit-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@-moz-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@-o-keyframes rainbow {
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+@keyframes rainbow { 
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%}
+}
+
+    h1 {
+      color:gray;
+    }
+
+    .container {
+      margin: auto;
+      width:25%;
+    }
+
+    table {
+      background:lightsteelblue;
+      border-color:#3d3d3d;
+      border-style: dashed;
+    }
+
+    table tr:nth-child(even) {
+      background:lightslategray;
+    }
+
+    table thead td {
+      background: #3d3d3d;
+      color: #ffffff;
+    }
+
+    table td {
+      padding: 5px;
+    }
+
+    input[type=button] {
+      padding: 10px 25px 10px 25px;
+      background:lightgray;
+      font-weight: bolder;
+      font-size:15px;
+    }
+
+    .hidden {
+      visibility: collapse;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrapper">
+      <div class="container">
+  <h1>I'm just a little HTML page <span style="color:black">with a touch of CSS</span></h1>
+  <p>I can do things like <strong>bold</strong> text, <u>underline</u> text and make thing <i>italic</i></p>
+
+  <h2>I can also do tables</h2>
+  <table border-width="1">
+    <thead>
+      <td>Name</td>
+      <td>Favorite color</td>
+      <td>Email</td>
+    </thead>
+    <tr>
+      <td>Jan</td>
+      <td>Green</td>
+      <td>jan@fake.net</td>
+    </tr>
+    <tr>
+      <td>Jon</td>
+      <td>Lime</td>
+      <td>jon@fake.net</td>
+    </tr>
+    <tr>
+      <td>Jin</td>
+      <td>Turquoise</td>
+      <td>jin@fake.net</td>
+    </tr>
+    <tr>
+        <td>Jim</td>
+        <td>Teal</td>
+        <td>jim@fake.net</td>
+    </tr>
+    <tr>
+      <td>Peter</td>
+      <td>Red</td>
+      <td>peter@faker.net</td>
+    </tr>
+  </table>
+  <br />
+  And if you're feeling clicky, I can give you a <input type="button" value="Button" onclick="animateBg()" />
+  <h2 id="jsWow" class="hidden">And with the power of JavaScript I can react to user input and edit content on the page</h2>
+</div></div>
+  <script>
+    function animateBg() {
+      var wrapper = document.getElementById('wrapper');
+      wrapper.classList.add("wrapper");
+
+      document.getElementById('jsWow').classList.remove('hidden');
+    }
+  </script>
+</body>
+
+</html>
