@@ -8,7 +8,7 @@ A simple exercise for the Mimmit Koodaa introduction workshops. Follow this alon
 
 Ready? :ok_hand: 
 
-:arrow_right: [Lets start with installing an editor](https://github.com/DrazenDodik/mimmitkoodaa/blob/master/mimmitkoodaa-intro/part1_introduction.md)
+:arrow_right: [Lets start with installing an editor](https://github.com/DrazenDodik/mimmitkoodaa/blob/master/mimmitkoodaa-intro/part1_choosingAnEditor.md)
 
 :bulb: Are you looking for a guide to get started with web development and go into more detail? There are a ton of resources online for this. Check out for example
 * [Node.js tutorial on W3C](https://www.w3schools.com/nodejs/)
