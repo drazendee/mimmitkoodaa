@@ -24,9 +24,9 @@ EventRouter.route('/post').post(function (req, res) {
       // response should render the event/results page and include the searchTerm and our data
       // we pass in eventData.data because the array that contains the events in the JSON response from Linked Events is called "data"
       res.render('events/results', {searchTerm: searchTerm, events: eventData.data});
-      
     })
-    .catch(error => console.error(error)); // in case of error print it to our console
+    .catch(error => console.error(error)); // in case of error print it to our commandline
 });
 
+// export this EventRoute when require this file
 module.exports = EventRouter;

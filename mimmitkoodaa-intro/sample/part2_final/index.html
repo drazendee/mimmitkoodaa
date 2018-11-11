@@ -1,0 +1,29 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <title>Helsinki events</title>
+</head>
+
+<body>
+  <h1>Find events in Helsinki</h1>
+
+  <input type="text" id="searchQuery" />
+  <input type="button" id="searchBtn" value="Search" onclick="sayHello()" />
+
+  <script>
+    function sayHello() {
+      var text = document.getElementById('searchQuery').value;
+  
+      if(text == "Helsinki") {
+        alert("Hmm.. maybe you want to try a different search word for better results?");
+      }
+      else {
+        alert("You searched for " + text);
+      }
+    }
+  </script>
+</body>
+
+</html>

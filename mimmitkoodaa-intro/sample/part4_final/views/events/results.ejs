@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Event results for <%=searchTerm%></title>
+  </head>
+  <body>
+
+    <h1>Results for <%=searchTerm%></h1>
+    <table id="resultsTable">
+      <thead>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Image</td>
+      </thead>
+
+      <!--For as long as i is smaller than the number of items in the events collection loop through this. For each item then show name and short_description-->
+      <% for(var i=0; i < events.length; i++) { %>
+        <tr>
+          <td><%= events[i].name.fi %></td>
+          <% if(events[i].short_description != null) { %>
+            <td><%= events[i].short_description.fi %></td>
+          <%} 
+          else { %>
+            <td>No description available</td> 
+          <%} %>
+          <% if(events[i].images[0] != null) { %>
+            <td><img style="max-width:200px;" src="<%= events[i].images[0].url %>" /></td>
+          <%}%>
+        </tr>
+      <% } %>
+    </table>
+
+  </body>
+</html>

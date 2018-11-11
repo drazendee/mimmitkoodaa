@@ -1,22 +1,20 @@
-# It's all about APIs
-You might have hear about APIs before. It seems that they're popping up in all kinds of conversations, also out side of the 
+# It's all about APIs :metal:
+You might have hear about APIs before, as it seems that they're popping up in all kinds of conversations.
 
 >In computer programming, an application programming interface (API) is a set of subroutine definitions, communication protocols, and tools for building software. - Wikipedia
 
-Essentially with it's something that you expose either internally between your app(s) or expose to external apps built by others, to access certain functionality from your app.
+Essentially, an API is something that you expose either internally between your apps(s) or expose to external apps allow them to access certain functionality or data that you haveö
 
-The APIs we'll be using come from the city of Helsinki. They have various data about the city, transportation, where they snowplowes are and also, what events are happening in Helsinki. They have a collection of data and logic, that they're exposing to everyone to use.
+The APIs we'll be using come from the city of Helsinki (https://api.hel.fi/). They have different types of data available about the city, transportation, where they snowplows are and also, what events are happening in Helsinki through the [Linked Events API](https://api.hel.fi/linkedevents/v1/).
 
-> APIs can also be completely open and free, like the ones from the city of Helsinki but they can also behind authentication (like Yle Areena) and of course some APIs having pricing.
+> APIs can be completely open and free, like the ones from the city of Helsinki but they can also behind authentication (like Yle Areena) and of course some APIs having pricing.
 >
-> Sometimes we use APIs to access data, like information about the upcoming events in Helsinki. And sometimes we use APIs like Computer Vision service on Microsoft Azure to send a photo to the machine learning algorithm and ask it to analyze it.
+> Sometimes we'll use APIs to access data, like information about the upcoming events in Helsinki. And sometimes we use APIs like Computer Vision service on Microsoft Azure to send a photo to the machine learning algorithm and ask it to analyze it.
 
-:mag: You can find a list of the APIs provided by the city of Helsinki here https://api.hel.fi/ We'll be using the [Linked Events API](https://api.hel.fi/linkedevents/v1/)
+## In what format to APIs provide data?
+There are several different formants in which APIs can provide you with data, but one of the most common ones is **JSON** (JavaScript Object Notation). It's basically a commonly agreed format to share data, that's easy for both humans and machines to read and process.
 
-## What kind of data do APIs provide?
-There are several different formants in which APIs can provide you with data, but one of the most common ones is **JSON** (JavaScript Object Notation). It's basically a commonly agreed format to share data, that's easy for both humans and machines to read.
-
-JSON Object example from [W3C](https://www.w3schools.com/js/js_json_objects.asp)
+JSON Object example from [W3C](https://www.w3schools.com/js/js_json_objects.asp), where we have an object called "myObj" that has a three properties: name (text), age (number) and cars (array). In addition each car has just one property (the name).
 ```json
 myObj = {
     "name":"John",
@@ -29,9 +27,13 @@ myObj = {
  }
  ```
 
-When you navigate to the Linked Events API you'll be able to request JSON as the format, so we can usually use it in our application.
+When you navigate to the Linked Events API you'll be able to request JSON as the format, so we can use the data in our application.
 
-JSON Response sample for [search query "malmi" from Linked Events API](https://api.hel.fi/linkedevents/v1/event/?format=json&text=malmi):
+JSON Response sample for [search query "malmi" from Linked Events API](https://api.hel.fi/linkedevents/v1/event/?format=json&text=malmi).
+
+* There ar two arrays at the first level: meta and data
+* Under data we can find an array that contains events
+* Each event contains properties like event_status and start_time. Events also have arrays like description, which contains fi, sv and en version.
 ```json
 {
   "meta": {
@@ -107,24 +109,29 @@ JSON Response sample for [search query "malmi" from Linked Events API](https://a
     }
 ```
 
-## Building the application
-Lets start building our web app for searching events from Helsinki.
+## Building our #HEL events search application
+Lets start building our web app for searching events from Helsinki, using the Linked Events API described above.
 
 Our app will consist of the following pages
 
-* Home  - Welcome to the site
+* Home  - A simple welcome page and a link to search for events
 * Event seach - A simple form to search for events
-* Results - Show all the events that match the search query
+* Results - To show the events that match the search query
 
-We'll be fetching matching events on server-side and then passing that results to the webpage. To make it easier for us to generate the HTML-markup across the pages, we'll use a JavaScript templating language called EJS.
+We'll be fetching matching events on server-side and then passing those results to the results page. To make it easier for us to generate the HTML-markup across the pages, we'll use a JavaScript templating language called EJS.
+
+Example of using EJS inside of HTML (this would show the value of the JavaScript variable searchQuery)
+```html
+You searched for <%=searchQuery%>
+```
 
 Install ejs from the terminal: `npm install ejs --save`
 
 ### Lets create our new pages
-1. Create a new folder called 'public' and create a index.html page inside it. This will be our new home page
+1. Create a new folder called 'public' and create a `index.html` page inside it. This will be our new home page
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
    <title>Helsinki City</title>
 </head>
@@ -137,7 +144,7 @@ Install ejs from the terminal: `npm install ejs --save`
 </html>
 ```
 2. Create a folder called 'views' and inside it another folder called 'events'.
-3. Create index.ejs inside the 'events'-folder. On this file we say we want a form that will post it's results to /events/post
+3. Create `index.ejs` inside the 'events'-folder. In this file we'll use the EJS templating language and display a form that will POST the submission to /events/post
 ```html
 <!DOCTYPE html>
 <html>
@@ -149,7 +156,7 @@ Install ejs from the terminal: `npm install ejs --save`
 
     <form method="post" action="/events/post">
       <label for="searchText">Event name</label>
-      <input type="text" class="form-control" id="searchText" name="searchText" />
+      <input type="text" id="searchText" name="searchText" />
       <button type="submit">Search</button>
     </form>
     
@@ -159,7 +166,7 @@ Install ejs from the terminal: `npm install ejs --save`
 
 Now we'll start exploring more of the features that Express brings to us.
 
-In your index.js file add/pdate the following lines
+In your index.js file add the following lines, after creating a new instance of Express.
 
 ```javascript
 // tell express to server our static files from the public folder
@@ -167,6 +174,8 @@ app.use(express.static('public'));
 // tell express that we'll use ejs as our view engine
 app.set('view engine', 'ejs');
 ```
+
+Then update our GET of '/' to send the new index.html file we created under the public folder
 
 ```javascript
 // update the root request to send the index.html file back as our home page
@@ -177,11 +186,11 @@ app.get('/', function (req, res) {
 
 Now if you run `node index.js` and open your browser at http://localhost:3000/ you should see the new index page :tada::tada:
 
-However, you'll notice that if you click the link to search for events to try to submit your search query, it throws you an error. Lets look into this.
+However, you'll notice that if you click the link to search for events it'll say that it can't get that page. For this we'll need to setup a router.
 
-### Handling POST-requests and passing data :outbox_tray: :inbox_tray:
+### Routing GET- and POST-requests and passing data between pages :outbox_tray: :inbox_tray:
 
-First we'll need to install a package to make it easier to parse data from our requests. Run
+First we'll need to install a package to make it easier to parse data from our requests, like the form submission. Run
 `npm install body-parser --save` to install body-parser
 
 Then update your index.js to use body-parser when passing pages and data around. Add the following lines to your index.js
@@ -195,11 +204,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 ```
 
-So far we've only used one _route_ in our express confirguration. We've told Express that if someone navigates to the root directory, we should send them the public/index.html file.
+So far we've only used one _route_ in our express confirguration to define that on requests to '/' Express should send back /public/index.html.
 
-Now lets introduce more routes, that will explain to Express what files to deliver on the pages.
+Now lets introduce more routes, that will define what to deliver on different requests we're getting (/events, /events/post)
 
-1. To keep this a bit cleaner we'll create a new folder in our project called _routes_ and inside it add a new file _eventRouter.js_ and add the following lines:
+1. To keep this a bit cleaner we'll create a new folder in our project called _routes_ and inside it add a new file _eventRouter.js_. This will manage all the requests under http://localhost:3000/events/. Add the following lines to eventRouter.js
+
 ```javascript
 // require express event
 var express = require('express');
@@ -217,19 +227,32 @@ EventRouter.route('/').get(function (req, res) {
 module.exports = EventRouter;
 ```
 
-2. Now go back to index.js and tell Express to get our new Router definition and use it in everything under localhost:3000/events/ by adding the following lines after the existing app.use definitions
+2. You might have noticed that we're requiring node-fetch inside that page. We didn't install it yet, so lets install it with `npm install node-fetch --save`
+
+3. Now go back to index.js and tell Express to get our new Router definition and use it in everything under localhost:3000/events/ by adding the following lines after the existing app.use definitions
 
 ```javascript
 const EventRouter = require('./routes/eventRouter');
 app.use('/events', EventRouter);
 ```
 
-Test your app by running `node index.js` and following the link on http://localhost:3000/ to the events search page.
+Test your app by running `node index.js` and following the link on http://localhost:3000/ to the events search page, ensuring that your router is working properly.
 
-### Fetch the API data
-Remember that in our HTML of _views/events/index.ejs_ we defined that our form submission should go to events/post. Lets now build the route for that and fetch for the API data
+### Fetch the API data on button click
+Remember that in our HTML of `views/events/index.ejs` we defined that when the form is submitted it should submit to events/post. Lets now build the route for that.
 
 Go to your eventRounter.js and add a new route before module.exports
+
+```javascript
+EventRouter.route('/post').post(function (req, res) {
+  // get the text that was submitted to the form from the request body.
+  // the name of the text-field on our form is searchText
+  var searchTerm = req.body.searchText;
+});
+```
+Now when the form is posted (events/post), we'll get to this route and we will be able to use the requests body to get the value of the searchbox (that we named searchText in our HTML).
+
+Now lets fetch data from the Linked Events API by passing it our search parameter
 
 ```javascript
 EventRouter.route('/post').post(function (req, res) {
@@ -253,17 +276,18 @@ EventRouter.route('/post').post(function (req, res) {
 
 Can you guess what's the next step? Yep. We need to create the events/results page to show our results.
 
-Create a new file _results.ejs_ in views/events. Inside it create a title and a table in which we'll show the event results.
+Create a new file `results.ejs` in views/events. Inside it create a title and a table in which we'll show the event results.
 
 ```html
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Event results for </title>
+    <title>#HEL Event results</title>
   </head>
   <body>
 
-    <table>
+    <h1>Results for </h1>
+    <table id="resultsTable">
       <thead>
         <td>Name</td>
         <td>Description</td>
@@ -276,22 +300,24 @@ Create a new file _results.ejs_ in views/events. Inside it create a title and a 
 </html>
 ```
 
-Run your app again, navigate to the search form and submit a query to ensure the page is rendering correctly.
+Run your app again, navigate to the search form and submit a query to ensure the page is rendering correctly. You should see an empty table with Name, Description and Image.
 
 Of course this is just the skeleton for our page and doesn't contain any actual data. Now we'll get to add some EJS magic :sparkles:
 
->:exclamation::exclamation: Remember in our eventRouter.js we said we want to pass the **searchTerm** and **events** objects to the results page
+:exclamation: Remember in our eventRouter.js we said we want to pass the **searchTerm** and **events** objects to the results page :exclamation:
 
 First lets update the title of the page to show the searchTerm. We use a special ejs syntax for this:
 
-`<title>Event results for <%=searchTerm%></h1>`
+`<h1>Results for <%=searchTerm%></h1>`
 
-Using <%= and %> we tell ejs to render here a JavaScript property that we've passed
+Using <%= and %> we tell ejs to render the value of a JavaScript variable.
 
 Next we need to go through the events object that contains all the JSON events we've gotten from the Linked Events API and render them on our table. In this case we'll render the name of the event and its short description.
 
+Please the following code in `results.ejs` after `</thead>`
+
 ```javascript
-// For as long as i is smaller than the number of items in the events collection loop through this. For each item then show name and short_description
+/*For as long as i is smaller than the number of items in the events collection loop through this. For each item then show name and short_description*/
 <% for(var i=0; i < events.length; i++) { %>
   <tr>
     <td><%= events[i].name.fi %></td>
@@ -300,9 +326,9 @@ Next we need to go through the events object that contains all the JSON events w
 <% } %>
 ```
 
-> The name and short_description events are defined by the API. Go back to look at the JSON you received from Linked Events to understand the structure of the JSON they provide.
+The `name` and `short_description` properties are defined by the API. Go back and have a look at the JSON you received from Linked Events to understand the structure of the JSON they provide.
 
-The JSON data contains properties like description_short that are not mandatory fields, which means that sometimes there isn't a short_description available. So if you try to search for some terms (like currently 'punavuori') will result in an JavaScript error like the below:
+The JSON data contains properties like description_short that are not mandatory fields, which means that sometimes there isn't a short_description available. So if you try to search for some terms (like currently 'punavuori') that contains events without a short_description, you will see a JavaScript error like the one below:
 
 ![short_description missing](images/short_descriptionError.png)
 
@@ -316,4 +342,8 @@ else { %>
 <%} %>
 ```
 
->:mag: Some of the events have an image attached to them. Try to add an image to the table.
+:mag: Some of the events have an image attached to them. Try to add an image to the table.
+
+*:tada::tada: You have now completed the workshop! :tada::tada::tada:* Pat yourself on the back, ask a friend to pat you on the back, celebrate and look at the glory that is your Helsinki Events app.
+
+**Next :arrow_right: Explore the JSON to include other relevant fields in our table.**
