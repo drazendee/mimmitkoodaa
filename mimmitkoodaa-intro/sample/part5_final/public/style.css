@@ -1,0 +1,31 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+img {
+  max-width:150px;
+  max-height: 150px;
+}
+
+table td {
+  padding: 5px;
+  word-wrap: break-word;
+}
+
+table tr:nth-child(even) {
+  background:#ededed;
+}
+
+table thead td {
+  background: #3d3d3d;
+  color: #ffffff;
+}
+
+table td {
+  padding: 5px;
+}
+
+#resultsTable {
+  width: 75%;
+  margin:auto;
+}
