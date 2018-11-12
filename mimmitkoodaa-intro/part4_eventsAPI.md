@@ -171,6 +171,13 @@ Install ejs from the terminal: `npm install ejs --save`
 
 Now we'll start exploring more of the features that Express brings to us.
 
+*Create a new index.js file in the root of your folder* 
+>// lets require express, so we can use it here
+>var express = require('express');
+>
+>// create a new instance of express
+>var app = express();
+
 In your index.js file add the following lines, after creating a new instance of Express.
 
 ```javascript
