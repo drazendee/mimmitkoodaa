@@ -195,6 +195,11 @@ Also add the following index.js to update our GET of '/' to send the new index.h
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname,'public', 'index.html'));
 });
+
+// tell express that we will use port 3000 for this webserver
+app.listen(3000, function () {
+  console.log('Express is ready and listetning at http://localhost:3000!');
+});
 ```
 
 Now if you run `node index.js` and open your browser at http://localhost:3000/ you should see the new index page :tada::tada:
