@@ -118,6 +118,11 @@ Our app will consist of the following pages
 * Event seach - A simple form to search for events
 * Results - To show the events that match the search query
 
+
+1. Start by creating a new folder on your desktop called "Helsinki Events"
+2. Open the new folder in Visual Studio Code
+3. Run `npm init` and after that `npm install express --save` in your terminal (go to View -> Terminal to see the terminal in VS Code)
+
 We'll be fetching matching events on server-side and then passing those results to the results page. To make it easier for us to generate the HTML-markup across the pages, we'll use a JavaScript templating language called EJS.
 
 Example of using EJS inside of HTML (this would show the value of the JavaScript variable searchQuery)
@@ -128,7 +133,7 @@ You searched for <%=searchQuery%>
 Install ejs from the terminal: `npm install ejs --save`
 
 ### Lets create our new pages
-1. Create a new folder called 'public' and create a `index.html` page inside it. This will be our new home page
+1. Create a new folder called 'public' and create a `index.html` file inside it. This will be our new home page
 ```html
 <!DOCTYPE html>
 <html>
