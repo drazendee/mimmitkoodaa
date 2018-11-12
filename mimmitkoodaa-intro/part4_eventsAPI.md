@@ -188,7 +188,7 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 ```
 
-Then update our GET of '/' to send the new index.html file we created under the public folder
+Also add the following index.js to update our GET of '/' to send the new index.html file we created under the public folder
 
 ```javascript
 // update the root request to send the index.html file back as our home page
