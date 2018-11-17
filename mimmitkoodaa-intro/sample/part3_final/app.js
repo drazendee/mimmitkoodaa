@@ -10,6 +10,4 @@ app.get('/', function (req, res) {
 });
 
 // tell express that we will use port 3000 for this webserver
-app.listen(3000, function () {
-  console.log('Express is ready and listetning at http://localhost:3000!');
-});
+app.listen(3000);
