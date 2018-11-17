@@ -123,8 +123,9 @@ Our app will consist of the following pages
 
 1. Start by creating a new folder on your desktop called "Helsinki Events"
 2. Open the new folder in Visual Studio Code
-3. Run `npm init` and after that `npm install express --save` in your terminal (go to View -> Terminal to see the terminal in VS Code)
-    * Remember what npm init does?
+3. Run `npm init` **When asked the questions for hte package, make sure you change the entry point to app.js and NOT the default value of index.js**
+  * Do you still remember what npm init does? Ask us, if you're not sure
+4. after that `npm install express --save` in your terminal (go to View -> Terminal to see the terminal in VS Code)
 
 We'll start by creating our app in app.js with the same code as we've previously used:
 
