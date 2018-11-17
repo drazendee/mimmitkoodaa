@@ -118,10 +118,23 @@ Our app will consist of the following pages
 * Event seach - A simple form to search for events
 * Results - To show the events that match the search query
 
+![Sample](images/sampleAppScreenShot.png)
+
 
 1. Start by creating a new folder on your desktop called "Helsinki Events"
 2. Open the new folder in Visual Studio Code
 3. Run `npm init` and after that `npm install express --save` in your terminal (go to View -> Terminal to see the terminal in VS Code)
+    * Remember what npm init does?
+
+We'll start by creating our app in app.js with the same code as we've previously used:
+
+```javascript
+// lets require express, so we can use it here
+var express = require('express');
+
+// create a new instance of express
+var app = express();
+```
 
 We'll be fetching matching events on server-side and then passing those results to the results page. To make it easier for us to generate the HTML-markup across the pages, we'll use a JavaScript templating language called EJS.
 
@@ -149,7 +162,7 @@ Install ejs from the terminal: `npm install ejs --save`
 </html>
 ```
 2. Create a folder called 'views' and inside it another folder called 'events'.
-3. Create `index.ejs` inside the 'events'-folder. In this file we'll use the EJS templating language and display a form that will POST the submission to /events/post
+3. Create `index.ejs` inside the new 'events'-folder. In this file we'll use the EJS templating language and display a form that will POST the submission to /events/post
 ```html
 <!DOCTYPE html>
 <html>
@@ -169,17 +182,7 @@ Install ejs from the terminal: `npm install ejs --save`
 </html>
 ```
 
-Now we'll start exploring more of the features that Express brings to us.
-
-*Create a new index.js file in the root of your folder* 
-```javascript
-// lets require express, so we can use it here
-var express = require('express');
-
-// create a new instance of express
-var app = express();
-```
-In your index.js file add the following lines, after creating a new instance of Express.
+Now we'll start exploring more of the features that Express brings to us. In your app.js file add the following lines:
 
 ```javascript
 // tell express to server our static files from the public folder
@@ -188,21 +191,19 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 ```
 
-Also add the following index.js to update our GET of '/' to send the new index.html file we created under the public folder
+Also add the following app.js to update our GET of '/' to send the new index.html file we created under the public folder
 
 ```javascript
 // update the root request to send the index.html file back as our home page
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname,'public', 'index.html'));
+app.get('/', function (request, response) {
+  response.sendFile(path.join(__dirname,'public', 'index.html'));
 });
 
 // tell express that we will use port 3000 for this webserver
-app.listen(3000, function () {
-  console.log('Express is ready and listetning at http://localhost:3000!');
-});
+app.listen(3000);
 ```
 
-Now if you run `node index.js` and open your browser at http://localhost:3000/ you should see the new index page :tada::tada:
+Now if you run `node app.js` and open your browser at http://localhost:3000/ you should see the new index page :tada::tada:
 
 However, you'll notice that if you click the link to search for events it'll say that it can't get that page. For this we'll need to setup a router.
 
@@ -211,7 +212,9 @@ However, you'll notice that if you click the link to search for events it'll say
 First we'll need to install a package to make it easier to parse data from our requests, like the form submission. Run
 `npm install body-parser --save` to install body-parser
 
-Then update your index.js to use body-parser when passing pages and data around. Add the following lines to your index.js
+Then update your app.js to use body-parser when passing pages and data around. Add the following lines to your app.js
+
+**Place all require commands at the top of your page and the app.use and app.set commands after them, before your app.get routing**
 
 ```javascript
 // require the body-parser so we can easily read data that is passed from our form
@@ -226,6 +229,8 @@ So far we've only used one _route_ in our express confirguration to define that 
 
 Now lets introduce more routes, that will define what to deliver on different requests we're getting (/events, /events/post)
 
+
+
 1. To keep this a bit cleaner we'll create a new folder in our project called _routes_ and inside it add a new file _eventRouter.js_. This will manage all the requests under http://localhost:3000/events/. Add the following lines to eventRouter.js
 
 ```javascript
@@ -237,56 +242,75 @@ var EventRouter = express.Router();
 var fetch = require('node-fetch');
 
 // Render the correct index page if someone navigates to the events router
-EventRouter.route('/').get(function (req, res) {
-  res.render('events/index');
+EventRouter.route('/').get(function (request, response) {
+  response.render('events/index');
 });
 
 // export this EventRoute when require this file
 module.exports = EventRouter;
 ```
 
-2. You might have noticed that we're requiring node-fetch inside that page. We didn't install it yet, so lets install it with `npm install node-fetch --save`
+Now with yet another new Folder and file, ensure your file structure looks like the one below. You can drag and drop to re-arrange ideas and right-click to rename them.
+![Folder structure](images/sampleFolderStructure_4.png)
 
-3. Now go back to index.js and tell Express to get our new Router definition and use it in everything under localhost:3000/events/ by adding the following lines after the existing app.use definitions
+2. You might have noticed that we're requiring node-fetch inside that page. We didn't install it yet, so lets install with `npm install node-fetch --save`
+
+3. Now go back to app.js and tell Express to get our new Router definition and use it in everything under localhost:3000/events/ by adding the following lines after the existing app.use definitions
 
 ```javascript
 const EventRouter = require('./routes/eventRouter');
 app.use('/events', EventRouter);
 ```
 
-Test your app by running `node index.js` and following the link on http://localhost:3000/ to the events search page, ensuring that your router is working properly.
+So now our event routing will be working like in the image below
+* If the client is asking for the root ('/') app.js will directly provide the public/index.html page (blue line)
+* For all requests to /events our app.js will use eventRouter.js (green lines)
+    * In the next part we will add the routing and functionality for /events/post, you don't have it yet in your code.
+![Event Routing](images/eventRouter.png)
+
+Test your app by running `node app.js` and following the link on http://localhost:3000/ to the events search page, ensuring that your router is working properly.
 
 ### Fetch the API data on button click
 Remember that in our HTML of `views/events/index.ejs` we defined that when the form is submitted it should submit to events/post. Lets now build the route for that.
 
+** To refresh your memory, here's what we have already added in in `views/events/index.ejs`. Note the first line that is calling /events/post and remember that in `app.js`we said that all requests that go to /events should go to our eventRouter.js
+```html
+<form method="post" action="/events/post">
+  <label for="searchText">Event name</label>
+  <input type="text" id="searchText" name="searchText" />
+  <button type="submit">Search</button>
+</form>
+```
+
 Go to your eventRounter.js and add a new route before module.exports
 
 ```javascript
-EventRouter.route('/post').post(function (req, res) {
+EventRouter.route('/post').post(function (request, response) {
   // get the text that was submitted to the form from the request body.
   // the name of the text-field on our form is searchText
-  var searchTerm = req.body.searchText;
+  var searchTerm = request.body.searchText;
 });
 ```
+
 Now when the form is posted (events/post), we'll get to this route and we will be able to use the requests body to get the value of the searchbox (that we named searchText in our HTML).
 
 Now lets fetch data from the Linked Events API by passing it our search parameter
 
 ```javascript
-EventRouter.route('/post').post(function (req, res) {
+EventRouter.route('/post').post(function (request, response) {
   // get the text that was submitted to the form from the request body.
   // the name of the text-field on our form is searchText
-  var searchTerm = req.body.searchText;
+  var searchTerm = request.body.searchText;
 
   // fetch the JSON from Linked Events API in JSON and use our search term for the text parameter
   fetch('https://api.hel.fi/linkedevents/v1/event/?format=json&text='+searchTerm)
-    .then(response => response.json()) // parse the response as JSON
+    .then(helResponse => helResponse.json()) // parse the response as JSON
     .then(eventData => { // take the parsed JSON as eventData and
       console.log(eventData.data) // Print all the JSON to our console for debugging
 
       // response should render the event/results page and include the searchTerm and our data
       // we pass in eventData.data because the array that contains the events in the JSON response from Linked Events is called "data"
-      res.render('events/results', {searchTerm: searchTerm, events: eventData.data});
+      response.render('events/results', {searchTerm: searchTerm, events: eventData.data});
     })
     .catch(error => console.error(error)); // in case of error print it to our commandline
 });
@@ -336,12 +360,16 @@ Please the following code in `results.ejs` after `</thead>`
 
 ```javascript
 /*For as long as i is smaller than the number of items in the events collection loop through this. For each item then show name and short_description*/
-<% for(var i=0; i < events.length; i++) { %>
+<%
+for(var i=0; i < events.length; i++) { 
+%>
   <tr>
     <td><%= events[i].name.fi %></td>
     <td><%= events[i].short_description.fi %></td>
   </tr>
-<% } %>
+<%
+}
+%>
 ```
 
 The `name` and `short_description` properties are defined by the API. Go back and have a look at the JSON you received from Linked Events to understand the structure of the JSON they provide.
@@ -352,12 +380,18 @@ The JSON data contains properties like description_short that are not mandatory 
 
 Lets fix this with a simple if-statement
 ```javascript
-<% if(events[i].short_description != null) { %>
+<% 
+if(events[i].short_description != null) { 
+%>
   <td><%= events[i].short_description.fi %></td>
-<%} 
-else { %>
+<%
+} 
+else { 
+%>
   <td>No description available</td> 
-<%} %>
+<%
+}
+%>
 ```
 
 :mag: Some of the events have an image attached to them. Try to add an image to the table.

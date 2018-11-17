@@ -27,10 +27,12 @@ When you start off, don't spend too much time worrying about what language to ch
 ## Creating the Search-page
 So let's get working on creating our page. First, we will create a new HTML page with a search field and a button.
 
-1. Open up your editor (VS Code) and create a new file.
-2. Write the base for your html page (sample below)
-3. Save the page as index.html on your computer in a new folder on your desktop called "HelsinkiEvents"
-4. Open the file with your browser
+1. Create a new folder on your desktop called Mimmit Koodaa
+1. Open up your editor (VS Code) and click to Open Folder. Find the empty Mimmit Koodaa folder on your desktop and open it.
+1. Create a new index.html file in VS Code (File -> New File)
+1. Write the base for your html page (sample below)
+1. Save the page as index.html on your computer in a new folder on your desktop called "HelsinkiEvents"
+1. Open the file with your browser
 
 ```html
 <!doctype html>
@@ -122,7 +124,7 @@ Save your changes and head to the browser, refresh your page and test that the v
 
 You'll notice that the text comparison is case sensitive, so "helsinki" is not the same as "Helsinki".*
 
-**:mag: Got some extra time?** Use your favorite search engine to find away to ignore case sensitivity when comparing text in JavaScript.
+**:mag: Got some extra time?** Search online to find away to ignore case sensitivity when comparing text in JavaScript, for example by making both text strings lowercase first, before comparing.
 
 At this point, take a breather and congratulate yourself.. and if you're the expressive type whaile your hands in the air :tada::tada::tada:
 

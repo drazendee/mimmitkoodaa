@@ -41,20 +41,22 @@ So lets start creating our Node.js application. We'll first install Node.js on y
 
 Once you've installed Node.js go back to VS Code and from the toolbar select View->Terminal. This will open the integrated terminal inside the editor, so you don't have to jump between different windows.
 
-Start by initializing the node.js project and linking it to the node package manger (npm), by writing the following in the VS Code Terminal.
+Now we will start by basically saying "Hey Node Package Manager! I'd like to create a Node.js app here and use the Node Package Manager (npm)". So in your Terminal window (from VS Code go to View -> Terminal) type in the init command for npm to start up and answer questions about your app (What's the name? Who created it? Does it have tests ready? What is the license for this app?)
 
 `npm init`
 
-You will be asked a series of questions, you can type in your answers or just hit enter to accept the default values. This will create a `package.json` file that will include your answers and where you will define properties, scripts and depencies for your app.
+You will be asked a series of questions. You can type in your answers or just hit enter to accept the default values. **Make sure you change the entry point to app.js and NOT the default value of index.js**
 
-Now create a new file (File->New File) and name it `index.js`
+This will create a `package.json` file that will include your answers and where you will define properties, scripts and depencies for your app.
 
-Inside index.js add the following line, so we can ensure Node.js is installed and running properly.
+Now create a new file (File->New File) and name it `app.js`
+
+Inside app.js add the following line, so we can ensure Node.js is installed and running properly.
 ```javascript
 console.log("Hello World, from Node.js");
 ```
 
-Now to run your new app, write the following in the Terminal `node index.js`
+Now to run your new app, write the following in the Terminal `node app.js`
 
 :tada::tada::tada:
 
@@ -78,7 +80,7 @@ Now that we have express installed we can use it in our app. We'll tell it what 
 
 We won't be deploying this to a cloud server but rather use a Node.js server that is running on our machine.
 
-Replace the contents of your `index.js` file with the code below and save the file.
+Replace the contents of your `app.js` file with the code below and save the file.
 
 ```javascript
 // lets require express, so we can use it in this page
@@ -88,17 +90,15 @@ var express = require('express');
 var app = express();
 
 // tell Express that if someone navigates on the root of our website '/' we should send them a hello back
-app.get('/', function (req, res) {
-  res.send('Hello from Node.js!');
+app.get('/', function (request, response) {
+  response.send('Hello from Node.js!');
 });
 
 // tell express that we will use port 3000 for this webserver
-app.listen(3000, function () {
-  console.log('Express is ready and listetning at http://localhost:3000!');
-});
+app.listen(3000);
 ```
 
-Now again in your terminal run `node index.js` and then open your browser at http://localhost:3000/
+Now again in your terminal run `node app.js` and then open your browser at http://localhost:3000/
 
 > You can stop the process by pressing Ctrl+C
 
