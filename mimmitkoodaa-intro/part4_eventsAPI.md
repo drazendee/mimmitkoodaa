@@ -251,7 +251,9 @@ module.exports = EventRouter;
 ```
 
 Now with yet another new Folder and file, ensure your file structure looks like the one below. You can drag and drop to re-arrange ideas and right-click to rename them.
+
 ![Folder structure](images/sampleFolderStructure_4.png)
+
 
 2. You might have noticed that we're requiring node-fetch inside that page. We didn't install it yet, so lets install with `npm install node-fetch --save`
 
