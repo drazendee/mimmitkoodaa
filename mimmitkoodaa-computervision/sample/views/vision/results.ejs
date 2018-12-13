@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tag results </title>
+  </head>
+  <body>
+    <h1>Results </h1>
+    <table id="resultsTable">
+      <thead>
+        <td>Tag</td>
+      </thead>
+      <!--For as long as i is smaller than the number of items in the events collection loop through this. For each item then show name and short_description-->
+      <% for(var i=0; i < tags.length; i++) { %>
+        <tr>
+          <td><%= tags[i].name %></td>
+          <td><%= tags[i].confidence %></td>
+        </tr>
+      <% } %>
+    </table>
+  </body>
+</html>

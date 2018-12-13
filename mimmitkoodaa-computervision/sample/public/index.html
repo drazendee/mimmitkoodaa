@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Image Analysis Service</title>
+  </head>
+  <body>
+    <h1>Submit image for detection</h1>
+    <form method="post" action="/vision/post" enctype="multipart/form-data">
+      <label for="searchText">Select an image</label>
+      <input type="file" id="imageFile" name="imageFile"  />
+      <button type="submit">Go</button>
+    </form>
+  </body>
+</html>
