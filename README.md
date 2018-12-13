@@ -8,8 +8,10 @@ Simple exercises for the Mimmit Koodaa workshops. Follow this along as we go thr
 
 Ready? :ok_hand: 
 Choose one of the workshop contents below:
+
 :arrow_right: [Start from the basics](https://github.com/DrazenDodik/mimmitkoodaa/blob/master/mimmitkoodaa-intro/README.md)
-:arrow_right: [Start from the basics](https://github.com/DrazenDodik/mimmitkoodaa/blob/master/mimmitkoodaa-computervision/README.md)
+
+:arrow_right: [Use Computer Vision APIs](https://github.com/DrazenDodik/mimmitkoodaa/blob/master/mimmitkoodaa-computervision/README.md)
 
 
 # **Welcome to Microsoft Flux**
