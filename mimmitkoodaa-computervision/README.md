@@ -37,7 +37,9 @@ Let's go ahead and create a simple node.js app with some static pages.
 
 ### Create your folder structure :fire:
 - In VS Code file explorer click on the New Folder icon and create a new folder named **public** (this will contain all our public files)
+
 ![Creating a new folder in VS Code](vscodeNewFolder.png)
+
 - Use the same button to create another new folder named **routes** (this will contain the router js file)
 - Create a new folder name **views** and another folder under it called **vision** (this will contain your vision search result)
 
