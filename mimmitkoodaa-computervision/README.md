@@ -230,3 +230,48 @@ You should now see an Azure icon at the end of the icon list on the left. Click 
 1. Select the web app that you just created as the target for your deployment
 1. Confirm that you allow the deployment to install npm packages and confirm the environment as default for this project
 1. wait for the deployment to complete and then try to access the site by clicking the "Browse Website" button
+
+## Custom Vision
+Now that we have general purpose image recognition, what if we need to detect something more specific? If you show a pen to a general purpose image recognition, it will always say it’s a pen. If we however want to detect what kind of pen it is, we need to train our own image recognition model to detect different kinds of pens. 
+
+And it’s super simple! Just navigate to:
+https://www.customvision.ai/
+- And click on New Project
+- Give it a name, e.g. Pens, leave the rest of the values to default, and press “Create Project”
+- Click on the “Add Images” and select all images of the same kind, e.g pencils, and press OK
+- Under “My Tags”, enter the tag for the images. e.g. “pencil” and press Upload
+- Complete the process for the rest of images and tags (e.g. markers, pens)
+- Now that we have all the images, let’s train the model: click on the “Train” button.
+- Once the model is trained you can tap on the “Quick Test”, provide another image and see how it is detected.
+
+### Add custom vision to you application
+Now that we have a trained custom vision model, let’s tie it back into our application.
+Click on the “Performance” button
+Click on the “Prediction URL” button
+Copy the URL under the “If you have an image file” and use it to replace the URL value in the visionRouter.js
+````javascript
+uriBase = "https://southcentralus.api.cognitive.microsoft.com/customvision/v2.0/Prediction/2e66d3eb-7512-467c-a0f7-1a71e5e68d88/url?iterationId=7f70b199-1bf9-44f8-8933-dc6bd9a24a8c";
+````
+And then edit the headers to contain a Prediction Key header, value for which you can pick up again from the page:
+````javascript
+fetch(uriBase, { method: 'POST', body: fileStream, headers: { 'Content-Type': 'application/octet-stream', 'Prediction-Key': '7ab4413f79e9451fa5ab55ae7aef2498' } })
+````
+Now if you run your application you will notice that it causes an error. That is because our returning JSON is slightly different in this API. We can investigate how does it look like, and make adjustments accordingly.
+
+Place a break point next to res.render, run your application, upload an image, and go back to VSCode.
+You will see that the application stopped at the point where the break point is placed. 
+Now you can investigate the element, in this case we are interested in “ImageData”. If we hover a mouse over it, we can see that it contains an object named “predictions”, which contains an array of objects that each have a “probability” and a “tagName”. So let’s change our code to match those values. We can stop the app execution (press the stop button or press SHIFT+F5).
+
+In visionRouter.js let's change the res.render to pass the predictions element
+````javascript
+    res.render('vision/results', {tags: imageData.predictions});
+````
+
+and then in the results.ejs let's change the loop to expect "probability" and "tagName"
+````HTML
+		  <td><%= tags[i].tagName %></td>
+          <td><%= tags[i].probability %></td>
+````
+
+Now we can run our solution again, and see the data based on our custom image model. Notice that if you still have your break point set, the execution will stop at this step. If it does, then you can just press F5 again to continue (or press "play" again).
+
