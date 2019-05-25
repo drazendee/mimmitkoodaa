@@ -16,8 +16,8 @@ Choose one of the workshop contents below:
 
 # **Welcome to Microsoft Flux**
 
-# **WIFI:** MSFTFLUX
+# **WIFI:** MSFTGuest
 
-# **PASSWORD:** weareinflux
+# **PASSWORD:** msevent964rz
 
 Content at http://aka.ms/mimmit-koodaa
