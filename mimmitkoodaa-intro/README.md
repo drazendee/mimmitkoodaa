@@ -15,7 +15,7 @@ Ready? :ok_hand:
 * [Intro to web development](https://btholt.github.io/intro-to-web-dev-v2/) by Brian Holt
 * [Learn web development](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web) on developer.mozilla.org
 
-# **Welcome to Microsoft Flux**
+# **Welcome to Microsoft**
 
 # **WIFI:** MSFTGuest
 
