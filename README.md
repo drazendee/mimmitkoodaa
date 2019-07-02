@@ -13,11 +13,4 @@ Choose one of the workshop contents below:
 
 :arrow_right: [Use Computer Vision APIs](https://github.com/DrazenDodik/mimmitkoodaa/blob/master/mimmitkoodaa-computervision/README.md)
 
-
-# **Welcome to Microsoft Flux**
-
-# **WIFI:** MSFTGuest
-
-# **PASSWORD:** msevent964rz
-
 Content at http://aka.ms/mimmit-koodaa
