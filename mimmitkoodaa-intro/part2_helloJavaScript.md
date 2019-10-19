@@ -31,7 +31,7 @@ So let's get working on creating our page. First, we will create a new HTML page
 1. Open up your editor (VS Code) and click to Open Folder. Find the empty Mimmit Koodaa folder on your desktop and open it.
 1. Create a new index.html file in VS Code (File -> New File)
 1. Write the base for your html page (sample below)
-1. Save the page as index.html on your computer in a new folder on your desktop called "HelsinkiEvents"
+1. Save the page as index.html on your computer in a new folder on your desktop called "Mimmit Koodaa"
 1. Open the file with your browser
 
 ```html
